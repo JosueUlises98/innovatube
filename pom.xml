@@ -34,6 +34,7 @@
         <spring.starter.web>3.5.0</spring.starter.web>
         <logging.version>2.0.17</logging.version>
         <spring.test>3.5.0</spring.test>
+        <mapstruct.version>1.6.3</mapstruct.version>
     </properties>
 
     <dependencies>
@@ -113,6 +114,12 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>${logging.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.mapstruct/mapstruct -->
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>${mapstruct.version}</version>
         </dependency>
     </dependencies>
 
