@@ -1,24 +1,33 @@
 package org.developers.model.entities;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "favorites")
+@Table(name = "favorites", indexes = {
+        @Index(name = "idx_user_video", columnList = "user_id,video_id"),
+        @Index(name = "idx_added_at", columnList = "added_at")
+})
+@Data
 public class Favorite {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "favorite_id")
-    Long favoriteId;
+    private Long favoriteId;
+    @Column(name = "title", nullable = false)
+    private String title;
+    @Column(name = "thumbnail_url", nullable = false)
+    private String thumbnailUrl;
     // Relación Many-to-One con User
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    User userId;
+    private Long userId;
     // Relación Many-to-One con Video
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "video_id", nullable = false)
-    Video videoId;
+    private Long videoId;
     @Column(name = "added_at", nullable = false)
-    LocalDateTime addedAt;
+    private LocalDateTime addedAt;
 }

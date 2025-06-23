@@ -12,7 +12,6 @@ public class DateTimeUtils {
 
     private static String formatDuration(Duration duration) {
         long seconds = duration.getSeconds();
-        String formatted = String.valueOf(seconds);
-        return formatted;
+        return String.valueOf(seconds);
     }
 }

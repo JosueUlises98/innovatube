@@ -1,10 +1,15 @@
-package org.developers.model.DTO;
+package org.developers.api.response.User;
+
+
+
+import lombok.Builder;
+import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
-public class UserDTO {
-    private Long userid;
+@Data
+@Builder
+public class UserResponse {
     private String name;
     private String lastname;
     private String username;
@@ -13,5 +18,5 @@ public class UserDTO {
     private LocalDateTime createdAt;
     private LocalDateTime lastLogin;
     private String profilePicture;
-    private List<FavoriteDTO> favorites;
+    private Boolean isActive;
 }

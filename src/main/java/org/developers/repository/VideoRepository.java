@@ -28,7 +28,9 @@ public interface VideoRepository extends JpaRepository<Video, Long> {
     List<Video> findPopularVideos(@Param("minViews") Integer minViews);
 
     @Query("SELECT v FROM Video v LEFT JOIN v.favorites f " +
-            "GROUP BY v ORDER BY COUNT(f) DESC")
+            "GROUP BY v.videoId, v.youtubeVideoId, v.title, v.description, " +
+            "v.thumbnailUrl, v.duration, v.addedAt, v.viewCount " +
+            "ORDER BY COUNT(f) DESC")
     List<Video> findMostFavoritedVideos(Pageable pageable);
 
     // Búsqueda por período

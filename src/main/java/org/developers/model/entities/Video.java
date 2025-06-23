@@ -1,33 +1,63 @@
 package org.developers.model.entities;
 
 import jakarta.persistence.*;
-import java.time.Duration;
+import lombok.Getter;
+import lombok.Setter;
+import java.math.BigInteger;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 @Entity
-@Table(name = "videos")
+@Table(name = "videos", indexes = {
+        @Index(name = "idx_youtube_video_id", columnList = "youtube_video_id"),
+        @Index(name = "idx_title", columnList = "title"),
+        @Index(name = "idx_added_at", columnList = "added_at"),
+        @Index(name = "idx_view_count", columnList = "view_count"),
+        @Index(name = "idx_likes", columnList = "likes")
+})
 public class Video {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "video_id")
-    Long videoId;
+    private Long videoId;
     @Column(name = "youtube_video_id", unique = true, nullable = false, length = 20)
-    String youtubeVideoId;
+    @Getter
+    private String youtubeVideoId;
     @Column(nullable = false)
-    String title;
+    @Setter
+    @Getter
+    private String title;
     @Column(columnDefinition = "TEXT")
-    String description;
+    @Setter
+    @Getter
+    private String description;
     @Column(name = "thumbnail_url")
-    String thumbnailUrl;
+    @Setter
+    @Getter
+    private String thumbnailUrl;
     @Column(name = "duration")
-    String duration;
+    @Setter
+    @Getter
+    private String duration;
     @Column(name = "added_at")
-    LocalDateTime addedAt;
+    @Setter
+    @Getter
+    private LocalDateTime addedAt;
     @Column(name = "view_count")
-    Integer viewCount;
+    @Setter
+    @Getter
+    private BigInteger viewCount;
+    @Column(name = "likes")
+    @Setter
+    @Getter
+    private BigInteger likes;
     // Relación One-to-Many con Favorites
     @OneToMany(mappedBy = "video", cascade = CascadeType.ALL)
-    List<Favorite> favorites;
+    private List<Favorite> favorites;
 
+    // Getter para la colección
+    public List<Favorite> getFavorites() {
+        return Collections.unmodifiableList(favorites);
+    }
 }
