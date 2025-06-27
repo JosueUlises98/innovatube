@@ -45,17 +45,17 @@ public class UserServiceImpl implements UserService {
 
     public boolean isUsernameAvailable(IsUserNameAvaibleRequest request) {
         logger.debug("Verificando disponibilidad del username: {}", request.getUsername());
-        return !userRepository.existsByUsername(request.getUsername());
+        return userRepository.existsByUsername(request.getUsername());
     }
 
     public boolean isEmailAvailable(IsEmailAvaibleRequest request) {
         logger.debug("Verificando disponibilidad del email: {}", request.getEmail());
-        return !userRepository.existsByEmail(request.getEmail());
+        return userRepository.existsByEmail(request.getEmail());
     }
 
     public boolean isUserNameAvailableById(IsUserNameAvaibleRequest userNameAvaibleRequest) {
         logger.debug("Verificando disponibilidad del username por id: {}", userNameAvaibleRequest.getUserId());
-        return !userRepository.existsById(userNameAvaibleRequest.getUserId());
+        return userRepository.existsById(userNameAvaibleRequest.getUserId());
     }
 
     public List<UserResponse> getRecentlyActiveUsers(GetRecentlyActiveUsersRequest request) {
@@ -140,7 +140,6 @@ public class UserServiceImpl implements UserService {
                             .email(existingUser.getEmail())
                             .createdAt(existingUser.getCreatedAt())
                             .lastLogin(existingUser.getLastLogin())
-                            .profilePicture(existingUser.getProfilePicture())
                             .isActive(existingUser.getIsActive())
                             .build());
                     User savedUser = userRepository.save(existingUser);
@@ -152,14 +151,6 @@ public class UserServiceImpl implements UserService {
 
     public void deleteUser(DeleteUserRequest request) {
         AtomicReference<User> loguser = new AtomicReference<>();
-        if (request.getUsername() != null){
-            logger.info("Eliminando usuario con username: {}", request.getUsername());
-            userRepository.findByUsername(request.getUsername()).ifPresent(user -> {
-                user.setIsActive(false);
-                userRepository.delete(user);
-                loguser.set(user);
-            });
-        }
         logger.info("Eliminando usuario con email: {}", request.getEmail());
         userRepository.findByEmail(request.getEmail()).ifPresent(user -> {
             user.setIsActive(false);
@@ -177,7 +168,6 @@ public class UserServiceImpl implements UserService {
                 .username(request.getUsername())
                 .password(request.getPassword())
                 .email(request.getEmail())
-                .profilePicture(request.getProfilePicture())
                 .build();
         User user = userMapper.toEntity(userResponse);
         user.setCreatedAt(LocalDateTime.now());
@@ -185,5 +175,20 @@ public class UserServiceImpl implements UserService {
         User savedUser = userRepository.save(user);
         logger.info("Usuario creado: {}", savedUser);
         return userMapper.toUserResponse(savedUser);
+    }
+
+    public List<UserResponse> saveUsersInBatch(List<User> users) {
+        logger.info("Guardando lista de usuarios en lote");
+        users.forEach(user -> {
+            user.setCreatedAt(LocalDateTime.now().minusDays(5L));
+            user.setLastLogin(LocalDateTime.now().minusDays(1L));
+            user.setIsActive(true);
+        });
+        List<User> savedUsers = userRepository.saveAll(users);
+        List<UserResponse> userResponses = savedUsers.stream()
+                .map(userMapper::toUserResponse)
+                .collect(Collectors.toList());
+        logger.info("Se han guardado {} usuarios en lote", savedUsers.size());
+        return userResponses;
     }
 }

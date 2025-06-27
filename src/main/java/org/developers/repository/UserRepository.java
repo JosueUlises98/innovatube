@@ -1,5 +1,7 @@
 package org.developers.repository;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.developers.api.response.User.UserActivityMetricsResponse;
 import org.developers.model.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -54,4 +56,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     UserActivityMetricsResponse findUserMetrics(@Param("userId") Long userId);
 
 
+    Object existsByUsernameAndIdNot(@NotBlank(message = "Username cannot be empty") String username, @NotNull(message = "User ID cannot be empty") Long userId);
 }

@@ -17,6 +17,5 @@ public class UserResponse {
     private String email;
     private LocalDateTime createdAt;
     private LocalDateTime lastLogin;
-    private String profilePicture;
     private Boolean isActive;
 }

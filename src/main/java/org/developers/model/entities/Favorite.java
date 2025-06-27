@@ -1,6 +1,7 @@
 package org.developers.model.entities;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
         @Index(name = "idx_added_at", columnList = "added_at")
 })
 @Data
+@Builder
 public class Favorite {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

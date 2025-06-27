@@ -1,6 +1,8 @@
 package org.developers.model.entities;
 
 import jakarta.persistence.*;
+import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import java.math.BigInteger;
@@ -16,41 +18,28 @@ import java.util.List;
         @Index(name = "idx_view_count", columnList = "view_count"),
         @Index(name = "idx_likes", columnList = "likes")
 })
+@Builder
+@Data
 public class Video {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "video_id")
     private Long videoId;
     @Column(name = "youtube_video_id", unique = true, nullable = false, length = 20)
-    @Getter
     private String youtubeVideoId;
     @Column(nullable = false)
-    @Setter
-    @Getter
     private String title;
     @Column(columnDefinition = "TEXT")
-    @Setter
-    @Getter
     private String description;
     @Column(name = "thumbnail_url")
-    @Setter
-    @Getter
     private String thumbnailUrl;
     @Column(name = "duration")
-    @Setter
-    @Getter
     private String duration;
     @Column(name = "added_at")
-    @Setter
-    @Getter
     private LocalDateTime addedAt;
     @Column(name = "view_count")
-    @Setter
-    @Getter
     private BigInteger viewCount;
     @Column(name = "likes")
-    @Setter
-    @Getter
     private BigInteger likes;
     // Relación One-to-Many con Favorites
     @OneToMany(mappedBy = "video", cascade = CascadeType.ALL)

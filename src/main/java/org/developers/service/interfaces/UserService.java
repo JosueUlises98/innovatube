@@ -38,4 +38,5 @@ public interface UserService {
     void deactivateInactiveUsers(DeactivateInactiveUsersRequest deactivateInactiveUsersRequest);
     boolean isUserActive(IsUserActiveRequest isUserActiveRequest);
 
+
 }

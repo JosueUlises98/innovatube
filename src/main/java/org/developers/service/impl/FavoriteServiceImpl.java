@@ -5,7 +5,6 @@ import org.developers.api.request.Favorite.*;
 import org.developers.api.request.User.IsUserNameAvaibleRequest;
 import org.developers.api.request.Video.IsVideoAvailableById;
 import org.developers.api.response.Favorite.FavoriteVideoResponse;
-import org.developers.api.response.Favorite.FavoriteVideoStatistics;
 import org.developers.api.response.Favorite.PaginatedVideoFavoritesResponse;
 import org.developers.common.exception.exceptions.*;
 import org.developers.common.utils.quota.YouTubeQuotaUtil;
@@ -23,10 +22,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -119,10 +116,11 @@ public class FavoriteServiceImpl implements FavoriteService {
         }
 
         try {
-            Favorite favorite = new Favorite();
-            favorite.setUserId(request.getUserId());
-            favorite.setVideoId(request.getVideoId());
-            favorite.setAddedAt(LocalDateTime.now());
+            Favorite favorite = Favorite.builder()
+                    .userId(request.getUserId())
+                    .videoId(request.getVideoId())
+                    .addedAt(LocalDateTime.now())
+                    .build();
 
             favoriteRepository.save(favorite);
             syncWithYouTube(favorite, true);

@@ -1,5 +1,6 @@
 package org.developers.model.mapper;
 
+import org.developers.api.request.User.UpdateUserRequest;
 import org.developers.api.response.User.UserResponse;
 import org.developers.model.entities.User;
 import org.mapstruct.*;
