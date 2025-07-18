@@ -1,0 +1,22 @@
+RewriteEngine On
+RewriteBase /
+
+# Si el archivo o directorio existe, servirlo directamente
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Si no existe, redirigir a index.html para que React Router maneje la ruta
+RewriteRule ^(.*)$ /index.html [QSA,L]
+
+# Configuración de caché para archivos estáticos
+<FilesMatch "\.(js|css|png|jpg|jpeg|gif|ico|svg)$">
+    ExpiresActive On
+    ExpiresDefault "access plus 1 year"
+</FilesMatch>
+
+# Configuración de seguridad
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options nosniff
+    Header always set X-Frame-Options DENY
+    Header always set X-XSS-Protection "1; mode=block"
+</IfModule> 

@@ -1,0 +1,691 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base styles */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  margin: 0;
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #0f0f0f;
+  color: #ffffff;
+}
+
+/* Dark mode by default */
+:root {
+  color-scheme: dark;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #282828;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #404040;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #606060;
+}
+
+/* Line clamp utility */
+.line-clamp-1 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+.line-clamp-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.line-clamp-3 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+/* Loading spinner */
+.spinner {
+  border: 2px solid #404040;
+  border-top: 2px solid #ff0000;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Button styles */
+.btn-primary {
+  @apply bg-youtube-accent hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+}
+
+.btn-secondary {
+  @apply bg-youtube-card hover:bg-youtube-darker text-youtube-text font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+}
+
+.btn-outline {
+  @apply border border-youtube-border hover:bg-youtube-darker text-youtube-text font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+}
+
+/* Form styles */
+.form-input {
+  @apply w-full bg-youtube-card border border-youtube-border rounded-lg px-4 py-3 text-youtube-text placeholder-youtube-textMuted focus:outline-none focus:border-youtube-accent transition-colors;
+}
+
+.form-label {
+  @apply block text-youtube-text font-medium mb-2;
+}
+
+.form-error {
+  @apply text-red-500 text-sm mt-1;
+}
+
+/* Card styles */
+.card {
+  @apply bg-youtube-card border border-youtube-border rounded-lg p-6;
+}
+
+.card-hover {
+  @apply hover:bg-youtube-darker transition-colors duration-200;
+}
+
+/* Video card specific styles */
+.video-card {
+  @apply bg-youtube-card border border-youtube-border rounded-lg overflow-hidden transition-all duration-200 hover:shadow-lg hover:scale-[1.02];
+}
+
+.video-card:hover {
+  @apply border-youtube-accent/50;
+}
+
+/* Favorite button styles */
+.favorite-btn {
+  @apply p-2 rounded-full hover:bg-youtube-darker transition-colors duration-200 text-youtube-textMuted hover:text-youtube-accent;
+}
+
+.favorite-btn.favorited {
+  @apply text-youtube-accent;
+}
+
+/* Modal styles */
+.modal-overlay {
+  @apply fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50;
+}
+
+.modal-content {
+  @apply bg-youtube-card border border-youtube-border rounded-lg p-6 max-w-md w-full mx-4;
+}
+
+/* Tooltip styles */
+.tooltip {
+  @apply absolute z-50 px-2 py-1 text-xs text-white bg-gray-900 rounded shadow-lg opacity-0 pointer-events-none transition-opacity duration-200;
+}
+
+.tooltip.show {
+  @apply opacity-100;
+}
+
+/* Animation classes */
+.fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.slide-up {
+  animation: slideUp 0.3s ease-out;
+}
+
+.slide-down {
+  animation: slideDown 0.3s ease-out;
+}
+
+.scale-in {
+  animation: scaleIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { 
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from { 
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from { 
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to { 
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Responsive utilities */
+@media (max-width: 640px) {
+  .mobile-hidden {
+    display: none;
+  }
+  
+  .mobile-full {
+    width: 100%;
+  }
+}
+
+@media (min-width: 641px) {
+  .desktop-hidden {
+    display: none;
+  }
+}
+
+/* Focus styles for accessibility */
+button:focus,
+input:focus,
+textarea:focus,
+select:focus {
+  @apply outline-none ring-2 ring-youtube-accent ring-opacity-50;
+}
+
+/* Custom range slider styles */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-track {
+  background: #404040;
+  height: 4px;
+  border-radius: 2px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  background: #ff0000;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+input[type="range"]::-moz-range-track {
+  background: #404040;
+  height: 4px;
+  border-radius: 2px;
+}
+
+input[type="range"]::-moz-range-thumb {
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  background: #ff0000;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Video player specific styles */
+.video-player-container {
+  @apply relative bg-black rounded-lg overflow-hidden;
+}
+
+.video-controls {
+  @apply absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-transparent to-transparent p-4 opacity-0 transition-opacity duration-300;
+}
+
+.video-player-container:hover .video-controls {
+  @apply opacity-100;
+}
+
+/* Video grid styles */
+.video-grid {
+  @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4;
+}
+
+@media (max-width: 768px) {
+  .video-grid {
+    @apply grid-cols-1 sm:grid-cols-2;
+  }
+}
+
+/* Skeleton loading animation */
+.skeleton {
+  @apply bg-youtube-gray-lighter animate-pulse rounded;
+}
+
+@keyframes loading {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+/* Toast styles */
+.toast-success {
+  @apply bg-green-600 text-white;
+}
+
+.toast-error {
+  @apply bg-red-600 text-white;
+}
+
+.toast-info {
+  @apply bg-blue-600 text-white;
+}
+
+/* Custom select styles */
+.custom-select {
+  @apply relative;
+}
+
+.dropdown-menu {
+  @apply absolute z-50 w-full mt-1 bg-youtube-card border border-youtube-border rounded-lg shadow-lg;
+}
+
+.dropdown-item {
+  @apply px-4 py-2 text-youtube-text hover:bg-youtube-darker cursor-pointer transition-colors;
+}
+
+/* Badge styles */
+.badge {
+  @apply inline-flex items-center px-2 py-1 rounded-full text-xs font-medium;
+}
+
+.badge-primary {
+  @apply bg-youtube-accent text-white;
+}
+
+.badge-secondary {
+  @apply bg-youtube-gray-lighter text-youtube-textMuted;
+}
+
+/* Avatar styles */
+.avatar {
+  @apply rounded-full flex items-center justify-center;
+}
+
+.avatar-sm {
+  @apply w-8 h-8;
+}
+
+.avatar-md {
+  @apply w-12 h-12;
+}
+
+.avatar-lg {
+  @apply w-16 h-16;
+}
+
+/* Status indicators */
+.status-online {
+  @apply bg-green-500;
+}
+
+.status-offline {
+  @apply bg-gray-500;
+}
+
+.status-busy {
+  @apply bg-red-500;
+}
+
+/* Custom checkbox and radio styles */
+.custom-checkbox {
+  @apply appearance-none w-4 h-4 border border-youtube-border rounded bg-youtube-card checked:bg-youtube-accent checked:border-youtube-accent;
+}
+
+.custom-radio {
+  @apply appearance-none w-4 h-4 border border-youtube-border rounded-full bg-youtube-card checked:bg-youtube-accent checked:border-youtube-accent;
+}
+
+/* Progress bar styles */
+.progress-bar {
+  @apply w-full bg-youtube-gray-lighter rounded-full h-2;
+}
+
+.progress-fill {
+  @apply bg-youtube-accent h-2 rounded-full transition-all duration-300;
+}
+
+/* Divider styles */
+.divider {
+  @apply border-t border-youtube-border;
+}
+
+.divider-vertical {
+  @apply border-l border-youtube-border;
+}
+
+/* Text gradient effect */
+.text-gradient {
+  background: linear-gradient(45deg, #ff0000, #ff4444);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Hover effects */
+.hover-lift {
+  @apply transition-transform duration-200;
+}
+
+.hover-lift:hover {
+  @apply transform -translate-y-1;
+}
+
+.hover-glow {
+  @apply transition-shadow duration-200;
+}
+
+.hover-glow:hover {
+  @apply shadow-lg shadow-youtube-accent/20;
+}
+
+/* Focus ring for better accessibility */
+.focus-ring {
+  @apply focus:outline-none focus:ring-2 focus:ring-youtube-accent focus:ring-opacity-50;
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  .print-only {
+    display: block !important;
+  }
+}
+
+/* Custom video player controls */
+.video-controls-overlay {
+  @apply absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none;
+}
+
+.video-controls-content {
+  @apply absolute bottom-0 left-0 right-0 p-4 pointer-events-auto;
+}
+
+.video-progress-bar {
+  @apply relative h-1 bg-white/30 rounded-full cursor-pointer mb-4;
+}
+
+.video-progress-fill {
+  @apply absolute top-0 left-0 h-full bg-youtube-accent rounded-full transition-all duration-200;
+}
+
+.video-progress-thumb {
+  @apply absolute top-1/2 transform -translate-y-1/2 w-3 h-3 bg-youtube-accent rounded-full opacity-0 hover:opacity-100 transition-opacity;
+}
+
+/* Search suggestions */
+.search-suggestions {
+  @apply absolute top-full left-0 right-0 mt-1 bg-youtube-gray-dark border border-youtube-border rounded-lg shadow-youtube-lg z-50;
+}
+
+.search-suggestion-item {
+  @apply flex items-center space-x-3 w-full px-4 py-2 text-youtube-text hover:bg-youtube-darker transition-colors cursor-pointer;
+}
+
+/* User menu dropdown */
+.user-menu-dropdown {
+  @apply absolute right-0 mt-2 w-80 bg-youtube-card border border-youtube-border rounded-lg shadow-youtube-xl z-50;
+}
+
+.user-menu-item {
+  @apply flex items-center space-x-3 px-4 py-3 text-youtube-text hover:bg-youtube-darker transition-colors;
+}
+
+/* Sidebar styles */
+.sidebar {
+  @apply fixed left-0 top-0 h-full w-80 bg-youtube-darker border-r border-youtube-border z-50 overflow-y-auto scrollbar-thin;
+}
+
+.sidebar-item {
+  @apply flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors;
+}
+
+.sidebar-item.active {
+  @apply bg-youtube-darker text-youtube-accent;
+}
+
+.sidebar-item:not(.active) {
+  @apply text-youtube-text hover:bg-youtube-darker;
+}
+
+/* Comment styles */
+.comment-input {
+  @apply flex-1 bg-youtube-gray-darker border border-youtube-border rounded-full px-4 py-2 text-youtube-text placeholder-youtube-textMuted focus:outline-none focus:border-youtube-accent transition-colors;
+}
+
+.comment-item {
+  @apply flex space-x-3;
+}
+
+.comment-avatar {
+  @apply w-8 h-8 bg-youtube-accent rounded-full flex items-center justify-center flex-shrink-0;
+}
+
+.comment-content {
+  @apply flex-1;
+}
+
+.comment-header {
+  @apply flex items-center space-x-2 mb-1;
+}
+
+.comment-author {
+  @apply text-youtube-text font-medium text-sm;
+}
+
+.comment-time {
+  @apply text-youtube-textMuted text-xs;
+}
+
+.comment-text {
+  @apply text-youtube-text text-sm;
+}
+
+/* Share menu styles */
+.share-menu {
+  @apply mt-4 p-4 bg-youtube-gray-darker rounded-lg border border-youtube-border;
+}
+
+.share-grid {
+  @apply grid grid-cols-2 gap-4;
+}
+
+.share-item {
+  @apply flex items-center space-x-3 p-3 rounded-lg bg-youtube-darker text-youtube-text hover:bg-youtube-darker transition-colors;
+}
+
+/* Settings menu styles */
+.settings-menu {
+  @apply absolute top-16 right-4 bg-youtube-card border border-youtube-border rounded-lg shadow-youtube-lg z-50 min-w-48;
+}
+
+.settings-section {
+  @apply px-3 py-2 text-youtube-textMuted text-sm font-medium border-b border-youtube-border;
+}
+
+.settings-item {
+  @apply w-full px-3 py-2 text-left text-youtube-text hover:bg-youtube-darker transition-colors;
+}
+
+.settings-item.active {
+  @apply text-youtube-accent;
+}
+
+/* Volume slider styles */
+.volume-slider {
+  @apply w-20 h-1 bg-white/30 rounded-full appearance-none cursor-pointer;
+}
+
+.volume-slider::-webkit-slider-thumb {
+  @apply appearance-none w-3 h-3 bg-youtube-accent rounded-full;
+}
+
+.volume-slider::-moz-range-thumb {
+  @apply w-3 h-3 bg-youtube-accent rounded-full border-none;
+}
+
+/* Fullscreen styles */
+.fullscreen-video {
+  @apply fixed inset-0 z-50 bg-black;
+}
+
+.fullscreen-controls {
+  @apply absolute bottom-0 left-0 right-0 p-6;
+}
+
+/* Keyboard shortcuts indicator */
+.keyboard-shortcut {
+  @apply inline-flex items-center px-2 py-1 rounded bg-youtube-gray-lighter text-youtube-textMuted text-xs font-mono;
+}
+
+/* Loading states */
+.loading-skeleton {
+  @apply animate-pulse bg-youtube-gray-lighter rounded;
+}
+
+.loading-spinner {
+  @apply animate-spin rounded-full border-2 border-youtube-border border-t-youtube-accent;
+}
+
+/* Error states */
+.error-container {
+  @apply flex flex-col items-center justify-center p-8 text-center;
+}
+
+.error-icon {
+  @apply w-16 h-16 text-youtube-textMuted mb-4;
+}
+
+.error-title {
+  @apply text-xl font-bold text-youtube-text mb-2;
+}
+
+.error-message {
+  @apply text-youtube-textMuted mb-4;
+}
+
+/* Success states */
+.success-container {
+  @apply flex flex-col items-center justify-center p-8 text-center;
+}
+
+.success-icon {
+  @apply w-16 h-16 text-green-500 mb-4;
+}
+
+.success-title {
+  @apply text-xl font-bold text-youtube-text mb-2;
+}
+
+.success-message {
+  @apply text-youtube-textMuted;
+}
+
+/* Empty states */
+.empty-container {
+  @apply flex flex-col items-center justify-center p-8 text-center;
+}
+
+.empty-icon {
+  @apply w-16 h-16 text-youtube-textMuted mb-4;
+}
+
+.empty-title {
+  @apply text-xl font-bold text-youtube-text mb-2;
+}
+
+.empty-message {
+  @apply text-youtube-textMuted mb-4;
+}
+
+/* Responsive video player */
+@media (max-width: 768px) {
+  .video-player-container {
+    @apply aspect-video;
+  }
+  
+  .video-controls {
+    @apply p-2;
+  }
+  
+  .video-progress-bar {
+    @apply mb-2;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .video-card {
+    @apply border-2;
+  }
+  
+  .btn-primary {
+    @apply border-2 border-white;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+} 
